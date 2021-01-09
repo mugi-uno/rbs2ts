@@ -1,0 +1,40 @@
+type StrOrIntOrBool = String | Integer | Bool
+type StrAndIntAndBool = String & Integer & Bool
+
+type X = String & Integer | Bool
+type Y = String & (Integer | Bool)
+
+type Arr = Array[(Integer | String?)?]
+
+type Base = {
+  bool: bool,
+  void: void,
+  any: any,
+  nil: nil
+}
+
+type Foo = {
+  str: String,
+  str_o: String?,
+  int: Integer,
+  int_o: Integer?,
+  bool: Bool,
+  bool_o: Bool?
+}
+
+type Bar = {
+  type: String,
+  address: {
+    zipcode: String,
+    tel: String?
+  }?
+}
+
+type Baz = {
+  foo: Foo,
+  bar: Bar
+}
+
+type FooAndBar = Foo & Bar
+
+type FooOrBar = Foo | Bar

@@ -1,0 +1,5 @@
+ #!/usr/bin/env ruby
+
+require "rbs2ts"
+
+::Rbs2ts::Cli.start
