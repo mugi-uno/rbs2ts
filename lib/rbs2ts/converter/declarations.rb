@@ -14,7 +14,7 @@ module Rbs2ts
             end
           end
 
-          puts decls_ts.join("\n\n")
+          decls_ts.join("\n\n")
         end
       end
   

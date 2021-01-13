@@ -7,3 +7,5 @@ gemspec
 
 gem "debase"
 gem "ruby-debug-ide"
+gem "pry"
+gem "pry-byebug"

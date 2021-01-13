@@ -1,5 +1,11 @@
 require "bundler/setup"
 require "rbs2ts"
+require "pry"
+require "pry-byebug"
+require "tempfile"
+require "test_util"
+
+::RBS.logger_level = :error
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
