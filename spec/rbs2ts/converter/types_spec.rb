@@ -210,4 +210,28 @@ RSpec.describe Rbs2ts::Converter::Types do
       )
     end
   end
+
+  describe 'Literal' do
+    it 'convert Literal' do
+      expect(TestUtil.to_ts(
+        <<~RBS
+          type n = 123
+          type s = "hello world"
+          type t = true
+          type f = false
+        RBS
+      )).to eq(
+        <<~TS
+          type n = 123;
+
+          type s = "hello world";
+
+          type t = true;
+          
+          type f = false;
+        TS
+        .chomp
+      )
+    end
+  end
 end

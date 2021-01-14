@@ -73,6 +73,19 @@ module Rbs2ts
         end
       end
 
+      class Literal < ConverterBase
+        def to_ts
+          case type.literal
+          when ::String then
+            "\"#{type.literal}\""
+          when ::Integer, ::TrueClass, ::FalseClass then
+            "#{type.literal}"
+          else
+            'unknown'
+          end
+        end
+      end
+
       class Optional < ConverterBase
         def to_ts
           "#{Types::Resolver.to_ts(type.type)} | null | undefined"
@@ -169,6 +182,8 @@ module Rbs2ts
             Types::BasesNil
           when ::RBS::Types::ClassInstance then
             Types::ClassInstance
+          when ::RBS::Types::Literal then
+            Types::Literal
           when ::RBS::Types::Optional then
             Types::Optional
           when ::RBS::Types::Union then

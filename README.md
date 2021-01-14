@@ -18,7 +18,7 @@ rbs2ts convert type.rbs
 
 ## ToDo
 
-- [ ] Literal type
+- [x] Literal type
 - [ ] Interface type
 - [ ] Literal type
 - [ ] Tuple Type
