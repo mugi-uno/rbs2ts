@@ -48,7 +48,7 @@ module Rbs2ts
   
       class Alias < Base
         def to_ts
-          "type #{name} = #{Converter::Types::Resolver.to_ts(declaration.type)};"
+          "export type #{name} = #{Converter::Types::Resolver.to_ts(declaration.type)};"
         end
       end
   

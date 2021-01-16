@@ -9,13 +9,13 @@ RSpec.describe Rbs2ts::Converter::Declarations::Declarations do
       RBS
     )).to eq(
       <<~TS
-        type Foo = string;
+        export type Foo = string;
 
-        type Bar = number;
+        export type Bar = number;
 
-        type Baz = boolean;
+        export type Baz = boolean;
 
-        type FooBarBaz = Foo | Bar | Baz;
+        export type FooBarBaz = Foo | Bar | Baz;
       TS
       .chomp
     )
