@@ -10,7 +10,7 @@
       "request": "launch",
       "program": "${workspaceRoot}/exe/rbs2ts",
       "useBundler": true,
-      "args": ["convert", "spec/sample_rbs/test.rbs"]
+      "args": ["convert", "spec/fixtures/test.rbs"]
     }
   ]
 }

@@ -38,3 +38,17 @@ type Baz = {
 type FooAndBar = Foo & Bar
 
 type FooOrBar = Foo | Bar
+
+class Klass
+  attr_reader a: String
+  attr_writer b: Integer
+  attr_accessor c: Boolean
+
+  attr_reader r: {
+    d: String,
+    e: {
+      f: String,
+      g: String?
+    }?
+  }
+end
