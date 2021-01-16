@@ -7,7 +7,7 @@ RSpec.describe Rbs2ts::Converter::Types do
         RBS
       )).to eq(
         <<~TS
-          type t = boolean;
+          export type t = boolean;
         TS
         .chomp
       )
@@ -20,7 +20,7 @@ RSpec.describe Rbs2ts::Converter::Types do
         RBS
       )).to eq(
         <<~TS
-          type t = void;
+          export type t = void;
         TS
         .chomp
       )
@@ -34,9 +34,9 @@ RSpec.describe Rbs2ts::Converter::Types do
         RBS
       )).to eq(
         <<~TS
-          type t1 = any;
+          export type t1 = any;
   
-          type t2 = any;
+          export type t2 = any;
         TS
         .chomp
       )
@@ -49,7 +49,7 @@ RSpec.describe Rbs2ts::Converter::Types do
         RBS
       )).to eq(
         <<~TS
-          type t = null;
+          export type t = null;
         TS
         .chomp
       )
@@ -71,7 +71,7 @@ RSpec.describe Rbs2ts::Converter::Types do
         RBS
       )).to eq(
         <<~TS
-          type r = {
+          export type r = {
             a: string;
             b: number;
             r2: {
@@ -93,7 +93,7 @@ RSpec.describe Rbs2ts::Converter::Types do
         RBS
       )).to eq(
         <<~TS
-          type t = number | null | undefined;
+          export type t = number | null | undefined;
         TS
         .chomp
       )
@@ -109,9 +109,9 @@ RSpec.describe Rbs2ts::Converter::Types do
         RBS
       )).to eq(
         <<~TS
-          type t1 = string | number | boolean;
+          export type t1 = string | number | boolean;
 
-          type t2 = string | (number | null | undefined) | boolean;
+          export type t2 = string | (number | null | undefined) | boolean;
         TS
         .chomp
       )
@@ -130,15 +130,15 @@ RSpec.describe Rbs2ts::Converter::Types do
         RBS
       )).to eq(
         <<~TS
-          type t1 = string & number & boolean;
+          export type t1 = string & number & boolean;
           
-          type t2 = string & (number | null | undefined) & boolean;
+          export type t2 = string & (number | null | undefined) & boolean;
           
-          type t3 = string & number | boolean;
+          export type t3 = string & number | boolean;
           
-          type t4 = string & (number | boolean);
+          export type t4 = string & (number | boolean);
           
-          type t5 = string & (number | boolean | null | undefined);
+          export type t5 = string & (number | boolean | null | undefined);
         TS
         .chomp
       )
@@ -153,7 +153,7 @@ RSpec.describe Rbs2ts::Converter::Types do
         RBS
       )).to eq(
         <<~TS
-          type t = string;
+          export type t = string;
         TS
         .chomp
       )
@@ -166,7 +166,7 @@ RSpec.describe Rbs2ts::Converter::Types do
         RBS
       )).to eq(
         <<~TS
-          type t = number;
+          export type t = number;
         TS
         .chomp
       )
@@ -179,7 +179,7 @@ RSpec.describe Rbs2ts::Converter::Types do
         RBS
       )).to eq(
         <<~TS
-          type t = boolean;
+          export type t = boolean;
         TS
         .chomp
       )
@@ -196,15 +196,15 @@ RSpec.describe Rbs2ts::Converter::Types do
         RBS
       )).to eq(
         <<~TS
-          type t1 = string[];
+          export type t1 = string[];
 
-          type t2 = number[];
+          export type t2 = number[];
           
-          type t3 = (string | number)[];
+          export type t3 = (string | number)[];
 
-          type t4 = (string & number)[];
+          export type t4 = (string & number)[];
 
-          type t5 = (string | null | undefined)[];
+          export type t5 = (string | null | undefined)[];
         TS
         .chomp
       )
@@ -222,13 +222,13 @@ RSpec.describe Rbs2ts::Converter::Types do
         RBS
       )).to eq(
         <<~TS
-          type n = 123;
+          export type n = 123;
 
-          type s = "hello world";
+          export type s = "hello world";
 
-          type t = true;
+          export type t = true;
           
-          type f = false;
+          export type f = false;
         TS
         .chomp
       )
