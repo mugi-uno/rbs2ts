@@ -9,6 +9,8 @@ module Rbs2ts
         def to_ts
           decls_ts = @decls.map do |d|
             case d
+            when ::RBS::AST::Declarations::Class then
+              Converter::Declarations::Class.new(d).to_ts
             when ::RBS::AST::Declarations::Alias then
               Converter::Declarations::Alias.new(d).to_ts
             end
@@ -38,6 +40,38 @@ module Rbs2ts
       end
   
       class Class < Base
+        INDENT = '  '
+        @@nest = 0
+
+        def to_ts
+          @@nest = @@nest + 1
+
+          members_ts = declaration.members.map {|member|
+            ts = member_to_ts(member)
+            ts
+              .split("\n")
+              .map {|t| "#{INDENT * @@nest}#{t}" }
+              .join("\n")
+          }.join("\n")
+
+          @@nest = @@nest - 1
+
+          <<~TS
+            export namespace #{name} {
+            #{members_ts}
+            };
+          TS
+          .chomp
+        end
+
+        def member_to_ts(member)
+          case
+          when ::RBS::AST::Members::AttrReader, ::RBS::AST::Members::AttrAccessor then
+            "export type #{member.name} = #{Converter::Types::Resolver.to_ts(member.type)};"
+          else
+            ''
+          end
+        end
       end
   
       class Module < Base

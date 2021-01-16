@@ -1,23 +1,56 @@
 RSpec.describe Rbs2ts::Converter::Declarations::Declarations do
-  it 'convert Alias' do
-    expect(TestUtil.to_ts(
-      <<~RBS
-        type Foo = String
-        type Bar = Integer
-        type Baz = Bool
-        type FooBarBaz = Foo | Bar | Baz
-      RBS
-    )).to eq(
-      <<~TS
-        export type Foo = string;
+  describe 'Class' do
+    it 'convert Class' do
+      expect(TestUtil.to_ts(
+        <<~RBS
+          class Foo
+            attr_reader reader: String
+            attr_accessor accesor: String
+            attr_writer writer: String
+            attr_reader record: {
+              a: String,
+              b: Integer
+            }
+          end
+        RBS
+      )).to eq(
+        <<~TS
+          export namespace Foo {
+            export type reader = string;
+            export type accesor = string;
+            export type writer = string;
+            export type record = {
+              a: string;
+              b: number;
+            };
+          };
+        TS
+        .chomp
+      )
+    end
+  end
 
-        export type Bar = number;
-
-        export type Baz = boolean;
-
-        export type FooBarBaz = Foo | Bar | Baz;
-      TS
-      .chomp
-    )
+  describe 'Alias' do
+    it 'convert Alias' do
+      expect(TestUtil.to_ts(
+        <<~RBS
+          type Foo = String
+          type Bar = Integer
+          type Baz = Bool
+          type FooBarBaz = Foo | Bar | Baz
+        RBS
+      )).to eq(
+        <<~TS
+          export type Foo = string;
+  
+          export type Bar = number;
+  
+          export type Baz = boolean;
+  
+          export type FooBarBaz = Foo | Bar | Baz;
+        TS
+        .chomp
+      )
+    end
   end
 end
