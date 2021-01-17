@@ -12,8 +12,8 @@ type StringLiteral = 'abc'
 type TrueLiteral = true
 type FalseLiteral = false
 
-type UnionType = String & Integer & Bool
-type IntersectionType = String | Integer | Bool
+type IntersectionType = String & Integer & Bool
+type UnionType = String | Integer | Bool
 
 type ArrayType = Array[String]
 
