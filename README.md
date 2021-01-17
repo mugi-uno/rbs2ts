@@ -96,9 +96,9 @@ export type TrueLiteral = true;
 
 export type FalseLiteral = false;
 
-export type UnionType = string & number & boolean;
+export type IntersectionType = string & number & boolean;
 
-export type IntersectionType = string | number | boolean;
+export type UnionType = string | number | boolean;
 
 export type ArrayType = string[];
 
