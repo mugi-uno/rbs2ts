@@ -51,6 +51,10 @@ class Klass
       g: String?
     }?
   }
+
+  def to_s: () -> String
+  def self.new: () -> AnObject
+  def self?.sqrt: (Numeric) -> Numeric
 end
 
 type TupleEmpty = [ ]

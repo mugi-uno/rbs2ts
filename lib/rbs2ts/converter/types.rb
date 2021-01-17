@@ -139,7 +139,7 @@ module Rbs2ts
             Types::Array.new(type).to_ts
           when 'String' then
             Types::String.new(type).to_ts
-          when 'Integer' then
+          when 'Numeric', 'Integer', 'Float' then
             Types::Integer.new(type).to_ts
           when 'Bool' then
             Types::Bool.new(type).to_ts

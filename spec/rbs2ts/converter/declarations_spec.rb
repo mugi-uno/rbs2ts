@@ -11,6 +11,10 @@ RSpec.describe Rbs2ts::Converter::Declarations::Declarations do
               a: String,
               b: Integer
             }
+
+            def to_s: () -> String
+            def self.new: () -> AnObject
+            def self?.sqrt: (Numeric) -> Numeric
           end
         RBS
       )).to eq(
@@ -18,11 +22,13 @@ RSpec.describe Rbs2ts::Converter::Declarations::Declarations do
           export namespace Foo {
             export type reader = string;
             export type accesor = string;
-          
             export type record = {
               a: string;
               b: number;
             };
+            export type toSReturnType = string;
+            export type newReturnType = AnObject;
+            export type sqrtReturnType = number;
           };
         TS
         .chomp
