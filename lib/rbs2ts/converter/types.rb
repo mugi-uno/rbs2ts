@@ -73,6 +73,24 @@ module Rbs2ts
         end
       end
 
+      class Tuple < ConverterBase
+        def to_ts
+          tuple_types_ts = type.types.map {|t|
+            ts = Types::Resolver.to_ts(t)
+
+            if t.is_a?(::RBS::Types::Union) ||
+              t.is_a?(::RBS::Types::Intersection) ||
+              t.is_a?(::RBS::Types::Optional)
+              "(#{ts})"
+            else
+              ts
+            end
+          }.join(', ')
+
+          "[#{tuple_types_ts}]"
+        end
+      end  
+
       class Literal < ConverterBase
         def to_ts
           case type.literal
@@ -192,6 +210,8 @@ module Rbs2ts
             Types::Intersection
           when ::RBS::Types::Record then
             Types::Record
+          when ::RBS::Types::Tuple then
+            Types::Tuple
           else
             Types::Fallback
           end

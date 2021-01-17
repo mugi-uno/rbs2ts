@@ -85,6 +85,30 @@ RSpec.describe Rbs2ts::Converter::Types do
     end
   end
 
+  describe 'Tuple' do
+    it 'convert Tuple' do
+      expect(TestUtil.to_ts(
+        <<~RBS
+          type t1 = [ ]
+          type t2 = [String]
+          type t3 = [Integer, Integer]
+          type t4 = [String, Integer?, Bool]
+        RBS
+      )).to eq(
+        <<~TS
+          export type t1 = [];
+
+          export type t2 = [string];
+
+          export type t3 = [number, number];
+
+          export type t4 = [string, (number | null | undefined), boolean];
+        TS
+        .chomp
+      )
+    end
+  end
+
   describe 'Optional' do
     it 'convert Optional' do
       expect(TestUtil.to_ts(
