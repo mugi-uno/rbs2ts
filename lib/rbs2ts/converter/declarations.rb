@@ -52,7 +52,7 @@ module Rbs2ts
               .split("\n")
               .map {|t| "#{INDENT * @@nest}#{t}" }
               .join("\n")
-          }.join("\n")
+          }.reject(&:empty?).join("\n")
 
           @@nest = @@nest - 1
 
@@ -67,7 +67,9 @@ module Rbs2ts
         def member_to_ts(member)
           case member
           when ::RBS::AST::Members::AttrReader, ::RBS::AST::Members::AttrAccessor then
-            "export type #{member.name} = #{Converter::Types::Resolver.to_ts(member.type)};"
+            "export type #{CaseTransform.camel_lower(member.name)} = #{Converter::Types::Resolver.to_ts(member.type)};"
+          when ::RBS::AST::Members::MethodDefinition
+            "export type #{CaseTransform.camel_lower(member.name)}ReturnType = #{Converter::Types::Resolver.to_ts(member.types.first.type.return_type)};"
           else
             ''
           end

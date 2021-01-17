@@ -186,11 +186,17 @@ RSpec.describe Rbs2ts::Converter::Types do
     it 'convert Integer' do
       expect(TestUtil.to_ts(
         <<~RBS
-          type t = Integer
+          type i = Integer
+          type f = Float
+          type n = Numeric
         RBS
       )).to eq(
         <<~TS
-          export type t = number;
+          export type i = number;
+
+          export type f = number;
+
+          export type n = number;
         TS
         .chomp
       )
