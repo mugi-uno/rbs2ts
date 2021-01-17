@@ -52,3 +52,9 @@ class Klass
     }?
   }
 end
+
+type TupleEmpty = [ ]
+type Tuple1 = [String]
+type Tuple2 = [Integer, Integer]
+type Tuple3 = [String, Integer?, Bool]
+type Tuple4 = [{ s: String, i: Integer }]
