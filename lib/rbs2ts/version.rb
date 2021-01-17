@@ -1,3 +1,3 @@
 module Rbs2ts
-  VERSION = "1.0.0-alpha.4"
+  VERSION = "1.0.0"
 end
