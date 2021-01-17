@@ -65,7 +65,7 @@ module Rbs2ts
         end
 
         def member_to_ts(member)
-          case
+          case member
           when ::RBS::AST::Members::AttrReader, ::RBS::AST::Members::AttrAccessor then
             "export type #{member.name} = #{Converter::Types::Resolver.to_ts(member.type)};"
           else
