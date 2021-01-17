@@ -1,48 +1,39 @@
-type StrOrIntOrBool = String | Integer | Bool
-type StrAndIntAndBool = String & Integer & Bool
+type TypeofInteger = Integer
+type TypeofFloat = Float
+type TypeofNumeric = Numeric
+type TypeofString = String
+type TypeofBool = Bool
+type TypeofVoid = void
+type TypeofUntyped = untyped
+type TypeofNil = nil
 
-type X = String & Integer | Bool
-type Y = String & (Integer | Bool)
+type IntegerLiteral = 123
+type StringLiteral = 'abc'
+type TrueLiteral = true
+type FalseLiteral = false
 
-type Arr = Array[(Integer | String?)?]
+type UnionType = String & Integer & Bool
+type IntersectionType = String | Integer | Bool
 
-type Base = {
-  bool: bool,
-  void: void,
-  any: any,
-  nil: nil
-}
+type ArrayType = Array[String]
 
-type Foo = {
-  str: String,
-  str_o: String?,
-  int: Integer,
-  int_o: Integer?,
-  bool: Bool,
-  bool_o: Bool?
-}
+type TupleType = [ ]
+type TupleEmptyType = [String, Integer]
 
-type Bar = {
-  type: String,
-  address: {
-    zipcode: String,
-    tel: String?
+type OptionalType = String?
+
+type RecordType = {
+  s: String,
+  next: {
+    i: Integer,
+    f: Float
   }?
 }
 
-type Baz = {
-  foo: Foo,
-  bar: Bar
-}
-
-type FooAndBar = Foo & Bar
-
-type FooOrBar = Foo | Bar
-
 class Klass
-  attr_reader a: String
-  attr_writer b: Integer
-  attr_accessor c: Boolean
+  attr_accessor a: String
+  attr_reader b: Integer
+  attr_writer c: Bool
 
   attr_reader r: {
     d: String,
@@ -53,12 +44,5 @@ class Klass
   }
 
   def to_s: () -> String
-  def self.new: () -> AnObject
-  def self?.sqrt: (Numeric) -> Numeric
+  def tuple: () -> [{ s: String, f: Float }?]
 end
-
-type TupleEmpty = [ ]
-type Tuple1 = [String]
-type Tuple2 = [Integer, Integer]
-type Tuple3 = [String, Integer?, Bool]
-type Tuple4 = [{ s: String, i: Integer }]
