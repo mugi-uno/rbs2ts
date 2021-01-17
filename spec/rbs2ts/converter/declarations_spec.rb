@@ -18,7 +18,7 @@ RSpec.describe Rbs2ts::Converter::Declarations::Declarations do
           export namespace Foo {
             export type reader = string;
             export type accesor = string;
-            export type writer = string;
+          
             export type record = {
               a: string;
               b: number;
