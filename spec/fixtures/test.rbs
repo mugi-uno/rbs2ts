@@ -43,6 +43,27 @@ class Klass
     }?
   }
 
-  def to_s: () -> String
-  def tuple: () -> [{ s: String, f: Float }?]
+  def to_tuple: () -> [{ s: String, f: Float }?]
+  def required_positional: (String) -> void
+  def required_positional_name: (String str) -> void
+  def optional_positional: (?String) -> void
+  def optional_positional_name: (?String? str) -> void
+  def rest_positional: (*String) -> void
+  def rest_positional_name: (*String str) -> void
+  def rest_positional_with_trailing: (*String, Integer) -> void
+  def rest_positional_name_with_trailing: (*String str, Integer trailing) -> void
+  def required_keyword: (str: String) -> void
+  def optional_keyword: (?str: String?) -> void
+  def rest_keywords: (**String) -> void
+  def rest_keywords_name: (**String rest) -> void
+
+  def all_arguments: (
+    String required_positional,
+    ?Integer? optional_positional,
+    *String rest_positionals_s,
+    Integer trailing_positional_s,
+    required_keyword: String,
+    ?optional_keyword: Integer?,
+    **String rest_keywords
+  ) -> [{ s: String, f: Float }?]
 end

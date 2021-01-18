@@ -57,7 +57,7 @@ module Rbs2ts
           @@nest = @@nest - 1
 
           <<~TS
-            export namespace #{name} {
+            export declare class #{name} {
             #{members_ts}
             };
           TS
@@ -66,10 +66,14 @@ module Rbs2ts
 
         def member_to_ts(member)
           case member
-          when ::RBS::AST::Members::AttrReader, ::RBS::AST::Members::AttrAccessor then
-            "export type #{CaseTransform.camel_lower(member.name)} = #{Converter::Types::Resolver.to_ts(member.type)};"
+          when ::RBS::AST::Members::AttrReader then
+            Converter::Members::AttrReader.new(member).to_ts
+          when ::RBS::AST::Members::AttrWriter then
+            Converter::Members::AttrWriter.new(member).to_ts
+          when ::RBS::AST::Members::AttrAccessor then
+            Converter::Members::AttrAccessor.new(member).to_ts
           when ::RBS::AST::Members::MethodDefinition
-            "export type #{CaseTransform.camel_lower(member.name)}ReturnType = #{Converter::Types::Resolver.to_ts(member.types.first.type.return_type)};"
+            Converter::Members::MethodDefinition.new(member).to_ts
           else
             ''
           end

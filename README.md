@@ -33,8 +33,8 @@ type StringLiteral = 'abc'
 type TrueLiteral = true
 type FalseLiteral = false
 
-type UnionType = String & Integer & Bool
-type IntersectionType = String | Integer | Bool
+type IntersectionType = String & Integer & Bool
+type UnionType = String | Integer | Bool
 
 type ArrayType = Array[String]
 
@@ -64,8 +64,29 @@ class Klass
     }?
   }
 
-  def to_s: () -> String
-  def tuple: () -> [{ s: String, f: Float }?]
+  def to_tuple: () -> [{ s: String, f: Float }?]
+  def required_positional: (String) -> void
+  def required_positional_name: (String str) -> void
+  def optional_positional: (?String) -> void
+  def optional_positional_name: (?String? str) -> void
+  def rest_positional: (*String) -> void
+  def rest_positional_name: (*String str) -> void
+  def rest_positional_with_trailing: (*String, Integer) -> void
+  def rest_positional_name_with_trailing: (*String str, Integer trailing) -> void
+  def required_keyword: (str: String) -> void
+  def optional_keyword: (?str: String?) -> void
+  def rest_keywords: (**String) -> void
+  def rest_keywords_name: (**String rest) -> void
+
+  def all_arguments: (
+    String required_positional,
+    ?Integer? optional_positional,
+    *String rest_positionals_s,
+    Integer trailing_positional_s,
+    required_keyword: String,
+    ?optional_keyword: Integer?,
+    **String rest_keywords
+  ) -> [{ s: String, f: Float }?]
 end
 ```
 
@@ -116,18 +137,34 @@ export type RecordType = {
   } | null | undefined;
 };
 
-export namespace Klass {
-  export type a = string;
-  export type b = number;
-  export type r = {
+export declare class Klass {
+  a: string;
+  readonly b: number;
+  c: boolean;
+  readonly r: {
     d: string;
     e: {
       f: string;
       g: string | null | undefined;
     } | null | undefined;
   };
-  export type toSReturnType = string;
-  export type tupleReturnType = [({
+  toTuple(): [({
+    s: string;
+    f: number;
+  } | null | undefined)];
+  requiredPositional(arg1: string): void;
+  requiredPositionalName(str: string): void;
+  optionalPositional(arg1?: string): void;
+  optionalPositionalName(str?: string | null | undefined): void;
+  restPositional(...arg1: string[]): void;
+  restPositionalName(...str: string[]): void;
+  restPositionalWithTrailing(arg1: string[], arg2: number): void;
+  restPositionalNameWithTrailing(str: string[], trailing: number): void;
+  requiredKeyword(arg1: { str: string }): void;
+  optionalKeyword(arg1: { str?: string | null | undefined }): void;
+  restKeywords(arg1: { [key: string]: unknown; }): void;
+  restKeywordsName(arg1: { [key: string]: unknown; }): void;
+  allArguments(requiredPositional: string, optionalPositional?: number | null | undefined, restPositionalsS?: string[], trailingPositionalS?: number, arg1?: { requiredKeyword: string, optionalKeyword?: number | null | undefined, [key: string]: unknown; }): [({
     s: string;
     f: number;
   } | null | undefined)];
