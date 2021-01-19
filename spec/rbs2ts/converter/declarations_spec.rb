@@ -12,23 +12,40 @@ RSpec.describe Rbs2ts::Converter::Declarations::Declarations do
               b: Integer
             }
 
-            def to_s: () -> String
-            def self.new: () -> AnObject
-            def self?.sqrt: (Numeric) -> Numeric
+            def required_positional: (String) -> void
+            def required_positional_name: (String str) -> void
+            def optional_positional: (?String) -> void
+            def optional_positional_name: (?String? str) -> void
+            def rest_positional: (*String, Integer) -> void
+            def rest_positional_name: (*String str, Integer trailing) -> void
+            def rest_positional_only: (*String) -> void
+            def required_keyword: (str: String) -> void
+            def optional_keyword: (?str: String?) -> void
+            def rest_keywords: (**String) -> void
+            def rest_keywords_name: (**String rest) -> void
           end
         RBS
       )).to eq(
         <<~TS
-          export namespace Foo {
-            export type reader = string;
-            export type accesor = string;
-            export type record = {
+          export declare class Foo {
+            readonly reader: string;
+            accesor: string;
+            writer: string;
+            readonly record: {
               a: string;
               b: number;
             };
-            export type toSReturnType = string;
-            export type newReturnType = AnObject;
-            export type sqrtReturnType = number;
+            requiredPositional(arg1: string): void;
+            requiredPositionalName(str: string): void;
+            optionalPositional(arg1?: string): void;
+            optionalPositionalName(str?: string | null | undefined): void;
+            restPositional(arg1: string[], arg2: number): void;
+            restPositionalName(str: string[], trailing: number): void;
+            restPositionalOnly(...arg1: string[]): void;
+            requiredKeyword(arg1: { str: string }): void;
+            optionalKeyword(arg1: { str?: string | null | undefined }): void;
+            restKeywords(arg1: { [key: string]: unknown; }): void;
+            restKeywordsName(arg1: { [key: string]: unknown; }): void;
           };
         TS
         .chomp
