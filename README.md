@@ -1,6 +1,6 @@
 # Rbs2ts
 
-Convert RBS to TypeScript type definition.
+A RubyGem that converts Ruby RBS to TypeScript definitions.
 
 ## Installation
 

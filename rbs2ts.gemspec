@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["mugi-uno"]
   spec.email         = ["mugi.uno@gmail.com"]
 
-  spec.summary       = "Convert rbs to typescript"
+  spec.summary       = "A RubyGem that converts Ruby RBS to TypeScript definitions."
   spec.homepage      = "https://github.com/mugi-uno/rbs2ts"
   spec.license       = "MIT"
 
