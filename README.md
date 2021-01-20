@@ -92,6 +92,10 @@ end
 module Module
   def func: (String, Integer) -> { str: String, int: Integer }
 end
+
+interface _Interface
+  def func: (String, Integer) -> { str: String, int: Integer }
+end
 ```
 
 to TypeScript
@@ -180,18 +184,11 @@ export namespace Module {
     int: number;
   };
 };
+
+export interface Interface {
+  func(arg1: string, arg2: number): {
+    str: string;
+    int: number;
+  };
+};
 ```
-
----
-
-## ToDo
-
-- [x] Literal type
-- [ ] Interface type
-- [x] Literal type
-- [x] Tuple Type
-- [x] Base Types
-- [x] Method Type (Argument Types and Return Types)
-- [x] Class declaration
-- [x] Module declaration
-- [ ] Interface declaration
