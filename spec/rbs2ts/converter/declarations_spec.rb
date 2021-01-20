@@ -53,6 +53,45 @@ RSpec.describe Rbs2ts::Converter::Declarations::Declarations do
     end
   end
 
+  describe 'Module' do
+    it 'convert Module' do
+      expect(TestUtil.to_ts(
+        <<~RBS
+          module Foo
+            def required_positional: (String) -> void
+            def required_positional_name: (String str) -> void
+            def optional_positional: (?String) -> void
+            def optional_positional_name: (?String? str) -> void
+            def rest_positional: (*String, Integer) -> void
+            def rest_positional_name: (*String str, Integer trailing) -> void
+            def rest_positional_only: (*String) -> void
+            def required_keyword: (str: String) -> void
+            def optional_keyword: (?str: String?) -> void
+            def rest_keywords: (**String) -> void
+            def rest_keywords_name: (**String rest) -> void
+          end
+        RBS
+      )).to eq(
+        <<~TS
+          export namespace Foo {
+            export declare function requiredPositional(arg1: string): void;
+            export declare function requiredPositionalName(str: string): void;
+            export declare function optionalPositional(arg1?: string): void;
+            export declare function optionalPositionalName(str?: string | null | undefined): void;
+            export declare function restPositional(arg1: string[], arg2: number): void;
+            export declare function restPositionalName(str: string[], trailing: number): void;
+            export declare function restPositionalOnly(...arg1: string[]): void;
+            export declare function requiredKeyword(arg1: { str: string }): void;
+            export declare function optionalKeyword(arg1: { str?: string | null | undefined }): void;
+            export declare function restKeywords(arg1: { [key: string]: unknown; }): void;
+            export declare function restKeywordsName(arg1: { [key: string]: unknown; }): void;
+          };
+        TS
+        .chomp
+      )
+    end
+  end
+
   describe 'Alias' do
     it 'convert Alias' do
       expect(TestUtil.to_ts(

@@ -11,6 +11,8 @@ module Rbs2ts
             case d
             when ::RBS::AST::Declarations::Class then
               Converter::Declarations::Class.new(d).to_ts
+            when ::RBS::AST::Declarations::Module then
+              Converter::Declarations::Module.new(d).to_ts
             when ::RBS::AST::Declarations::Alias then
               Converter::Declarations::Alias.new(d).to_ts
             end
@@ -40,25 +42,14 @@ module Rbs2ts
       end
   
       class Class < Base
-        INDENT = '  '
-        @@nest = 0
-
         def to_ts
-          @@nest = @@nest + 1
-
           members_ts = declaration.members.map {|member|
-            ts = member_to_ts(member)
-            ts
-              .split("\n")
-              .map {|t| "#{INDENT * @@nest}#{t}" }
-              .join("\n")
+            member_to_ts(member)
           }.reject(&:empty?).join("\n")
-
-          @@nest = @@nest - 1
 
           <<~TS
             export declare class #{name} {
-            #{members_ts}
+            #{Helper.indent(members_ts)}
             };
           TS
           .chomp
@@ -81,6 +72,28 @@ module Rbs2ts
       end
   
       class Module < Base
+        def to_ts
+          members_ts = declaration.members.map {|member|
+            member_to_ts(member)
+          }.reject(&:empty?).join("\n")
+
+          <<~TS
+            export namespace #{name} {
+            #{Helper.indent(members_ts)}
+            };
+          TS
+          .chomp
+        end
+
+        def member_to_ts(member)
+          case member
+          when ::RBS::AST::Members::MethodDefinition
+            ts = Converter::Members::MethodDefinition.new(member).to_ts
+            "export declare function #{ts}"
+          else
+            ''
+          end
+        end
       end
   
       class Interface < Base

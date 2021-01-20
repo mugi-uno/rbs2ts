@@ -46,18 +46,10 @@ module Rbs2ts
       end
 
       class Record < ConverterBase
-        INDENT = '  '
-        @@nest = 0
-
         def to_ts
-          @@nest = @@nest + 1
-
-          indent = INDENT * @@nest
           field_lines = type.fields.map { |name, type|
-            "#{indent}#{CaseTransform.camel_lower(name.to_s)}: #{Types::Resolver.to_ts(type)};"
+            "#{CaseTransform.camel_lower(name.to_s)}: #{Types::Resolver.to_ts(type)};"
           }
-
-          @@nest = @@nest - 1
 
           return '{}' if field_lines.empty?
 
@@ -65,8 +57,8 @@ module Rbs2ts
 
           ts = <<~CODE
           {
-          #{field_ts}
-          #{INDENT * @@nest}}
+          #{Helper.indent(field_ts)}
+          }
           CODE
     
           ts.chomp

@@ -88,6 +88,10 @@ class Klass
     **String rest_keywords
   ) -> [{ s: String, f: Float }?]
 end
+
+module Module
+  def func: (String, Integer) -> { str: String, int: Integer }
+end
 ```
 
 to TypeScript
@@ -169,6 +173,13 @@ export declare class Klass {
     f: number;
   } | null | undefined)];
 };
+
+export namespace Module {
+  export declare function func(arg1: string, arg2: number): {
+    str: string;
+    int: number;
+  };
+};
 ```
 
 ---
@@ -182,5 +193,5 @@ export declare class Klass {
 - [x] Base Types
 - [x] Method Type (Argument Types and Return Types)
 - [x] Class declaration
-- [ ] Module declaration
+- [x] Module declaration
 - [ ] Interface declaration
