@@ -71,3 +71,7 @@ end
 module Module
   def func: (String, Integer) -> { str: String, int: Integer }
 end
+
+interface _Interface
+  def func: (String, Integer) -> { str: String, int: Integer }
+end

@@ -13,6 +13,8 @@ module Rbs2ts
               Converter::Declarations::Class.new(d).to_ts
             when ::RBS::AST::Declarations::Module then
               Converter::Declarations::Module.new(d).to_ts
+            when ::RBS::AST::Declarations::Interface then
+              Converter::Declarations::Interface.new(d).to_ts
             when ::RBS::AST::Declarations::Alias then
               Converter::Declarations::Alias.new(d).to_ts
             end
@@ -40,7 +42,7 @@ module Rbs2ts
     
         attr_reader :declaration
       end
-  
+
       class Class < Base
         def to_ts
           members_ts = declaration.members.map {|member|
@@ -97,6 +99,27 @@ module Rbs2ts
       end
   
       class Interface < Base
+        def to_ts
+          members_ts = declaration.members.map {|member|
+            member_to_ts(member)
+          }.reject(&:empty?).join("\n")
+
+          <<~TS
+            export interface #{name.gsub(/_/, '')} {
+            #{Helper.indent(members_ts)}
+            };
+          TS
+          .chomp
+        end
+
+        def member_to_ts(member)
+          case member
+          when ::RBS::AST::Members::MethodDefinition
+            Converter::Members::MethodDefinition.new(member).to_ts
+          else
+            ''
+          end
+        end
       end
   
       class Alias < Base
