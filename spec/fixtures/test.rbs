@@ -67,3 +67,7 @@ class Klass
     **String rest_keywords
   ) -> [{ s: String, f: Float }?]
 end
+
+module Module
+  def func: (String, Integer) -> { str: String, int: Integer }
+end
