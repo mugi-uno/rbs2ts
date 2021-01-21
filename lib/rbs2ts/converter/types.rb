@@ -136,7 +136,7 @@ module Rbs2ts
           when 'Bool' then
             Types::Bool.new(type).to_ts
           else
-            type.name.to_s.gsub(/:/, '')
+            type.name.name.to_s.gsub(/:/, '')
           end
         end
       end

@@ -69,6 +69,12 @@ RSpec.describe Rbs2ts::Converter::Declarations::Declarations do
             def optional_keyword: (?str: String?) -> void
             def rest_keywords: (**String) -> void
             def rest_keywords_name: (**String rest) -> void
+
+            type AliasType = String
+
+            class Bar
+              attr_reader reader: AliasType
+            end
           end
         RBS
       )).to eq(
@@ -85,6 +91,10 @@ RSpec.describe Rbs2ts::Converter::Declarations::Declarations do
             export declare function optionalKeyword(arg1: { str?: string | null | undefined }): void;
             export declare function restKeywords(arg1: { [key: string]: unknown; }): void;
             export declare function restKeywordsName(arg1: { [key: string]: unknown; }): void;
+            export type AliasType = string;
+            export declare class Bar {
+              readonly reader: AliasType;
+            };
           };
         TS
         .chomp
