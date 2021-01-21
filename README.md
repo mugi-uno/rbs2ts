@@ -90,7 +90,13 @@ class Klass
 end
 
 module Module
+  type AliasType = String
+
   def func: (String, Integer) -> { str: String, int: Integer }
+
+  class NestedClass
+    attr_accessor a: AliasType
+  end
 end
 
 interface _Interface
@@ -179,9 +185,13 @@ export declare class Klass {
 };
 
 export namespace Module {
+  export type AliasType = string;
   export declare function func(arg1: string, arg2: number): {
     str: string;
     int: number;
+  };
+  export declare class NestedClass {
+    a: AliasType;
   };
 };
 

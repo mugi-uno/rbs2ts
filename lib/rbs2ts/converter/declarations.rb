@@ -35,7 +35,7 @@ module Rbs2ts
         end
 
         def name
-          declaration.name.to_s.gsub(/:/, '')
+          declaration.name.name.to_s.gsub(/:/, '')
         end
     
         private
@@ -89,6 +89,14 @@ module Rbs2ts
 
         def member_to_ts(member)
           case member
+          when ::RBS::AST::Declarations::Class then
+            Converter::Declarations::Class.new(member).to_ts
+          when ::RBS::AST::Declarations::Module then
+            Converter::Declarations::Module.new(member).to_ts
+          when ::RBS::AST::Declarations::Interface then
+            Converter::Declarations::Interface.new(member).to_ts
+          when ::RBS::AST::Declarations::Alias then
+            Converter::Declarations::Alias.new(member).to_ts
           when ::RBS::AST::Members::MethodDefinition
             ts = Converter::Members::MethodDefinition.new(member).to_ts
             "export declare function #{ts}"

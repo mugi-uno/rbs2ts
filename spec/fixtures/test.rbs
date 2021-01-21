@@ -69,7 +69,13 @@ class Klass
 end
 
 module Module
+  type AliasType = String
+
   def func: (String, Integer) -> { str: String, int: Integer }
+
+  class NestedClass
+    attr_accessor a: AliasType
+  end
 end
 
 interface _Interface
