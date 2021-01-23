@@ -59,6 +59,8 @@ module Rbs2ts
 
         def member_to_ts(member)
           case member
+          when ::RBS::AST::Members::InstanceVariable then
+            Converter::Members::InstanceVariable.new(member).to_ts
           when ::RBS::AST::Members::AttrReader then
             Converter::Members::AttrReader.new(member).to_ts
           when ::RBS::AST::Members::AttrWriter then
@@ -97,6 +99,9 @@ module Rbs2ts
             Converter::Declarations::Interface.new(member).to_ts
           when ::RBS::AST::Declarations::Alias then
             Converter::Declarations::Alias.new(member).to_ts
+          when ::RBS::AST::Members::InstanceVariable
+            ts = Converter::Members::InstanceVariable.new(member).to_ts
+            "export declare let #{ts}"
           when ::RBS::AST::Members::MethodDefinition
             ts = Converter::Members::MethodDefinition.new(member).to_ts
             "export declare function #{ts}"
