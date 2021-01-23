@@ -75,6 +75,12 @@ RSpec.describe Rbs2ts::Converter::Declarations::Declarations do
             class Bar
               attr_reader reader: AliasType
             end
+
+            module NestedModule
+              class Baz
+                attr_reader writer: AliasType
+              end
+            end
           end
         RBS
       )).to eq(
@@ -94,6 +100,11 @@ RSpec.describe Rbs2ts::Converter::Declarations::Declarations do
             export type AliasType = string;
             export declare class Bar {
               readonly reader: AliasType;
+            };
+            export namespace NestedModule {
+              export declare class Baz {
+                readonly writer: AliasType;
+              };
             };
           };
         TS
