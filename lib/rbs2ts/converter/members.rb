@@ -19,6 +19,12 @@ module Rbs2ts
         attr_reader :member
       end
 
+      class InstanceVariable < Base
+        def to_ts
+          "#{name.gsub(/@/, '')}: #{Converter::Types::Resolver.to_ts(member.type)};"
+        end
+      end
+
       class AttrReader < Base
         def to_ts
           "readonly #{name}: #{Converter::Types::Resolver.to_ts(member.type)};"

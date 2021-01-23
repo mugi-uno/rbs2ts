@@ -52,6 +52,7 @@ type RecordType = {
 }
 
 class Klass
+  @val: String
   attr_accessor a: String
   attr_reader b: Integer
   attr_writer c: Bool
@@ -90,6 +91,7 @@ class Klass
 end
 
 module Module
+  @val: String
   type AliasType = String
 
   def func: (String, Integer) -> { str: String, int: Integer }
@@ -152,6 +154,7 @@ export type RecordType = {
 };
 
 export declare class Klass {
+  val: string;
   a: string;
   readonly b: number;
   c: boolean;
@@ -185,6 +188,7 @@ export declare class Klass {
 };
 
 export namespace Module {
+  export declare let val: string;
   export type AliasType = string;
   export declare function func(arg1: string, arg2: number): {
     str: string;

@@ -4,6 +4,8 @@ RSpec.describe Rbs2ts::Converter::Declarations::Declarations do
       expect(TestUtil.to_ts(
         <<~RBS
           class Foo
+            @val: String
+
             attr_reader reader: String
             attr_accessor accesor: String
             attr_writer writer: String
@@ -28,6 +30,7 @@ RSpec.describe Rbs2ts::Converter::Declarations::Declarations do
       )).to eq(
         <<~TS
           export declare class Foo {
+            val: string;
             readonly reader: string;
             accesor: string;
             writer: string;
@@ -58,6 +61,7 @@ RSpec.describe Rbs2ts::Converter::Declarations::Declarations do
       expect(TestUtil.to_ts(
         <<~RBS
           module Foo
+            @val: String
             def required_positional: (String) -> void
             def required_positional_name: (String str) -> void
             def optional_positional: (?String) -> void
@@ -77,7 +81,11 @@ RSpec.describe Rbs2ts::Converter::Declarations::Declarations do
             end
 
             module NestedModule
+              @nested_module_val: String
+
               class Baz
+                @nested_class_val: String
+
                 attr_reader writer: AliasType
               end
             end
@@ -86,6 +94,7 @@ RSpec.describe Rbs2ts::Converter::Declarations::Declarations do
       )).to eq(
         <<~TS
           export namespace Foo {
+            export declare let val: string;
             export declare function requiredPositional(arg1: string): void;
             export declare function requiredPositionalName(str: string): void;
             export declare function optionalPositional(arg1?: string): void;
@@ -102,7 +111,9 @@ RSpec.describe Rbs2ts::Converter::Declarations::Declarations do
               readonly reader: AliasType;
             };
             export namespace NestedModule {
+              export declare let nestedModuleVal: string;
               export declare class Baz {
+                nestedClassVal: string;
                 readonly writer: AliasType;
               };
             };
