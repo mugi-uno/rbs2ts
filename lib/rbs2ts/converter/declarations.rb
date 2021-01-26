@@ -35,7 +35,7 @@ module Rbs2ts
         end
 
         def name
-          declaration.name.name.to_s.gsub(/:/, '')
+          declaration.name.name.to_s
         end
     
         private
@@ -50,7 +50,7 @@ module Rbs2ts
           }.reject(&:empty?).join("\n")
 
           <<~TS
-            export declare class #{name} {
+            export declare class #{Converter::Helper.convert_name(name)} {
             #{Helper.indent(members_ts)}
             };
           TS
@@ -82,7 +82,7 @@ module Rbs2ts
           }.reject(&:empty?).join("\n")
 
           <<~TS
-            export namespace #{name} {
+            export namespace #{Converter::Helper.convert_name(name)} {
             #{Helper.indent(members_ts)}
             };
           TS
@@ -118,7 +118,7 @@ module Rbs2ts
           }.reject(&:empty?).join("\n")
 
           <<~TS
-            export interface #{name.gsub(/_/, '')} {
+            export interface #{Converter::Helper.convert_name(name.gsub(/_/, ''))} {
             #{Helper.indent(members_ts)}
             };
           TS
@@ -137,7 +137,7 @@ module Rbs2ts
   
       class Alias < Base
         def to_ts
-          "export type #{name} = #{Converter::Types::Resolver.to_ts(declaration.type)};"
+          "export type #{Converter::Helper.convert_name(name)} = #{Converter::Types::Resolver.to_ts(declaration.type)};"
         end
       end
   

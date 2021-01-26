@@ -11,7 +11,7 @@ module Rbs2ts
         end
 
         def name
-          CaseTransform.camel_lower(member.name.to_s.gsub(/:/, ''))
+          Converter::Helper.convert_name(member.name)
         end
     
         private
@@ -21,7 +21,7 @@ module Rbs2ts
 
       class InstanceVariable < Base
         def to_ts
-          "#{name.gsub(/@/, '')}: #{Converter::Types::Resolver.to_ts(member.type)};"
+          "#{name}: #{Converter::Types::Resolver.to_ts(member.type)};"
         end
       end
 

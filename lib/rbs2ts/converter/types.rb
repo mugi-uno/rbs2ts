@@ -48,7 +48,7 @@ module Rbs2ts
       class Record < ConverterBase
         def to_ts
           field_lines = type.fields.map { |name, type|
-            "#{CaseTransform.camel_lower(name.to_s)}: #{Types::Resolver.to_ts(type)};"
+            "#{Converter::Helper.convert_name(name)}: #{Types::Resolver.to_ts(type)};"
           }
 
           return '{}' if field_lines.empty?
@@ -136,7 +136,7 @@ module Rbs2ts
           when 'Bool' then
             Types::Bool.new(type).to_ts
           else
-            type.name.name.to_s.gsub(/:/, '')
+            Converter::Helper.convert_name(type.name.name)
           end
         end
       end
